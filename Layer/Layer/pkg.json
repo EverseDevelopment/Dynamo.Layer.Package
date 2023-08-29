@@ -1,0 +1,20 @@
+{
+  "license": "MIT",
+  "file_hash": null,
+  "name": "Layer",
+  "version": "1.0.0",
+  "description": "Connection to Layer App",
+  "group": "Layer",
+  "keywords": [ "Layer", "Revit" ],
+  "dependencies": [],
+  "contents": "Layer",
+  "engine_version": "2.5.0",
+  "engine": "dynamo",
+  "engine_metadata": "",
+  "site_url": "",
+  "repository_url": "",
+  "contains_binaries": true,
+  "node_libraries": [
+    "Layer, Version=1.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}
