@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Autodesk.DesignScript.Runtime;
+using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Projects
         // Empty constructor to avoid import in Dynamo
         private GetAllProjects() { }
 
-        public static List<Project> GetProjects(string bearerToken)
+        public static List<Dictionary<string, string>> GetProjects(string bearerToken)
         {
             var client = new RestClient("https://api.layer.team/projects");
             client.Timeout = -1;
@@ -27,7 +28,25 @@ namespace Projects
                 if (response.IsSuccessful)
                 {
                     var projectResponse = JsonConvert.DeserializeObject<ProjectResponse>(response.Content);
-                    return projectResponse.projects;
+                    var projectsDictList = new List<Dictionary<string, string>>();
+
+                    foreach (var project in projectResponse.projects)
+                    {
+                        var projectDict = new Dictionary<string, string>
+                        {
+                            { "createdAt", project.createdAt.ToString() },
+                            { "createdBy", project.createdBy },
+                            { "company", project.company },
+                            { "name", project.name },
+                            { "location", project.location },
+                            { "id", project.id },
+                            { "status", project.status },
+                            { "type", project.type }
+                        };
+                        projectsDictList.Add(projectDict);
+                    }
+
+                    return projectsDictList;
                 }
                 else
                 {
@@ -44,12 +63,12 @@ namespace Projects
         }
     }
 
-    public class ProjectResponse
+    class ProjectResponse
     {
         public List<Project> projects { get; set; }
     }
 
-    public class Project
+   class Project
     {
         public DateTime createdAt { get; set; }
         public string createdBy { get; set; }
