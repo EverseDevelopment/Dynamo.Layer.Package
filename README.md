@@ -1,4 +1,4 @@
-# DynaForge
+# Dyna Layer Package
 
 <h3 align="left">An <a href="https://forge.autodesk.com/" target="_blank">Autodesk Forge</a> extension for <a href="http://dynamobim.org/" target="_blank">Dynamo</a>.</h3>
 <br/>
