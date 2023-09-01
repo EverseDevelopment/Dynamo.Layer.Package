@@ -26,26 +26,26 @@ namespace Categories
 
                 if (response.IsSuccessful)
                 {
-                    var categoriesResponse = JsonConvert.DeserializeObject<CategoriesResponse>(response.Content);
+                    var categoriesResponse = JsonConvert.DeserializeObject<CategoryResponse>(response.Content);
                     var categoriesList = new List<Dictionary<string, string>>();
 
-                    foreach (var category in categoriesResponse.categories)
+                    foreach (var category in categoriesResponse.Categories)
                     {
                         var categoryDict = new Dictionary<string, string>
                         {
-                            { "createdAt", category.createdAt.ToString() },
-                            { "count", category.count.ToString() },
-                            { "initials", category.initials },
-                            { "instance", category.instance },
-                            { "modelCategory", category.modelCategory.ToString() },
-                            { "name", category.name },
-                            { "id", category.id },
-                            { "updatedAt", category.updatedAt.ToString() }
+                            { "createdAt", category.CreatedAt.ToString() },
+                            { "count", category.Count.ToString() },
+                            { "initials", category.Initials },
+                            { "instance", category.Instance },
+                            { "modelCategory", category.ModelCategory.ToString() },
+                            { "name", category.Name },
+                            { "id", category.Id },
+                            { "updatedAt", category.UpdatedAt.ToString() }
                         };
 
-                        if (category.order.HasValue)
+                        if (category.Order.HasValue)
                         {
-                            categoryDict["order"] = category.order.Value.ToString();
+                            categoryDict["order"] = category.Order.Value.ToString();
                         }
 
                         categoriesList.Add(categoryDict);
@@ -66,24 +66,6 @@ namespace Categories
                 return null;
             }
         }
-    }
-
-    class CategoriesResponse
-    {
-        public List<Category> categories { get; set; }
-    }
-
-    class Category
-    {
-        public DateTime createdAt { get; set; }
-        public int count { get; set; }
-        public string initials { get; set; }
-        public string instance { get; set; }
-        public bool modelCategory { get; set; }
-        public string name { get; set; }
-        public string id { get; set; }
-        public DateTime updatedAt { get; set; }
-        public int? order { get; set; } // Order property can be null hence marked as nullable
     }
 }
 

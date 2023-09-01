@@ -38,6 +38,10 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\Layer.xml</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>8.0</LangVersion>
+    <NullableContextOptions>enable</NullableContextOptions>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CefSharp, Version=93.1.111.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
       <HintPath>..\packages\CefSharp.Common.93.1.111\lib\net452\CefSharp.dll</HintPath>
@@ -154,15 +158,32 @@
   <ItemGroup>
     <Compile Include="Categories\GetCategoryInAProject.cs" />
     <Compile Include="Categories\GetProjectCategories.cs" />
+    <Compile Include="Categories\Models\Category.cs" />
+    <Compile Include="Categories\Models\CategoryBase.cs" />
+    <Compile Include="Categories\Models\CategoryDetailResponse.cs" />
+    <Compile Include="Categories\Models\CategoryResponse.cs" />
+    <Compile Include="Elements\Models\Param.cs" />
+    <Compile Include="Categories\Models\View.cs" />
     <Compile Include="Elements\CreateAnElement.cs" />
     <Compile Include="Elements\DeleteAnElement.cs" />
     <Compile Include="Elements\GetElementById.cs" />
-    <Compile Include="Elements\GetElements.cs" />
+    <Compile Include="Elements\GetAllElements.cs" />
+    <Compile Include="Elements\Models\Element.cs" />
+    <Compile Include="Elements\Models\ElementResponse.cs" />
+    <Compile Include="Elements\Models\Field.cs" />
+    <Compile Include="Elements\Models\SpatialRelationship.cs" />
     <Compile Include="Elements\UpdateAnElement.cs" />
+    <Compile Include="Projects\Models\Project.cs" />
+    <Compile Include="Projects\Models\ProjectResponse.cs" />
     <Compile Include="Projects\GetAllProjects.cs" />
     <Compile Include="Projects\GetASpecificProject.cs" />
+    <Compile Include="Projects\Models\SpecificProjectResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\GetViewOfACategoryInAProject.cs" />
+    <Compile Include="Views\Models\FieldDisplay.cs" />
+    <Compile Include="Views\Models\FilterConfig.cs" />
+    <Compile Include="Views\Models\ViewDetail.cs" />
+    <Compile Include="Views\Models\ViewDetailResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -186,8 +207,35 @@
     <MakeDir Directories="$(SolutionDir)..\packages\Layer\extra" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>copy  "$(SolutionDir)Layer\pkg.json"  "$(SolutionDir)\..\packages\Layer"
-if $(ConfigurationName) == Debug xcopy /E /Y "$(ProjectDir)..\..\packages\" "$(AppData)\Dynamo\Dynamo Revit\"</PostBuildEvent>
+    <PostBuildEvent>:: Check if destination folder for copy command exists
+
+
+if not exist "$(SolutionDir)\..\packages\Layer" mkdir "$(SolutionDir)\..\packages\Layer"
+
+
+
+
+:: Perform the copy
+
+
+copy "$(SolutionDir)Layer\pkg.json" "$(SolutionDir)\..\packages\Layer"
+
+
+
+:: Check if destination folder for xcopy command exists
+
+
+if not exist "$(AppData)\Dynamo\Dynamo Revit\" mkdir "$(AppData)\Dynamo\Dynamo Revit\"
+
+
+
+
+:: Perform the xcopy only if configuration is Debug
+
+
+if "$(ConfigurationName)"=="Debug"  xcopy /E /Y "$(ProjectDir)..\..\packages\" "$(AppData)\Dynamo\Dynamo Revit\"
+
+</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -199,4 +247,9 @@ if $(ConfigurationName) == Debug xcopy /E /Y "$(ProjectDir)..\..\packages\" "$(A
     <Error Condition="!Exists('..\packages\CefSharp.Common.93.1.111\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.93.1.111\build\CefSharp.Common.targets'))" />
   </Target>
   <Import Project="..\packages\CefSharp.Common.93.1.111\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.93.1.111\build\CefSharp.Common.targets')" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties pkg_1json__JsonSchema="https://codemagic.io/codemagic-schema.json" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

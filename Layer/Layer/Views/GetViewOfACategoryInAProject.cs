@@ -31,21 +31,21 @@ namespace Views
                     // Map view details
                     var result = new Dictionary<string, object>
                     {
-                        { "createdAt", viewDetailResponse.view.createdAt.ToString() },
-                        { "id", viewDetailResponse.view.id },
-                        { "name", viewDetailResponse.view.name },
-                        { "type", viewDetailResponse.view.type },
-                        { "updatedAt", viewDetailResponse.view.updatedAt.ToString() }
+                        { "createdAt", viewDetailResponse.View.CreatedAt.ToString() },
+                        { "id", viewDetailResponse.View.Id },
+                        { "name", viewDetailResponse.View.Name },
+                        { "type", viewDetailResponse.View.Type },
+                        { "updatedAt", viewDetailResponse.View.UpdatedAt.ToString() }
                     };
 
                     // Map field display
                     var fieldDisplayList = new List<Dictionary<string, string>>();
-                    foreach (var field in viewDetailResponse.view.fieldDisplay)
+                    foreach (var field in viewDetailResponse.View.FieldDisplay)
                     {
                         var fieldDict = new Dictionary<string, string>
                         {
-                            { "id", field.id },
-                            { "type", field.type }
+                            { "id", field.Id },
+                            { "type", field.Type }
                         };
                         fieldDisplayList.Add(fieldDict);
                     }
@@ -53,10 +53,10 @@ namespace Views
                     result["fieldDisplay"] = fieldDisplayList;
                     result["filterConfig"] = new Dictionary<string, object>
                     {
-                        { "condition", viewDetailResponse.view.filterConfig.condition },
-                        { "filters", viewDetailResponse.view.filterConfig.filters }
+                        { "condition", viewDetailResponse.View.FilterConfig.Condition },
+                        { "filters", viewDetailResponse.View.FilterConfig.Filters }
                     };
-                    result["sort"] = viewDetailResponse.view.sort;
+                    result["sort"] = viewDetailResponse.View.Sort;
 
                     return result;
                 }
@@ -73,34 +73,5 @@ namespace Views
                 return null;
             }
         }
-    }
-
-    class ViewDetailResponse
-    {
-        public ViewDetail view { get; set; }
-    }
-
-    class ViewDetail
-    {
-        public DateTime createdAt { get; set; }
-        public List<FieldDisplay> fieldDisplay { get; set; }
-        public FilterConfig filterConfig { get; set; }
-        public string id { get; set; }
-        public string name { get; set; }
-        public string type { get; set; }
-        public List<string> sort { get; set; } // Adjust this if 'sort' field in the response has a different structure
-        public DateTime updatedAt { get; set; }
-    }
-
-    class FieldDisplay
-    {
-        public string id { get; set; }
-        public string type { get; set; }
-    }
-
-    class FilterConfig
-    {
-        public string condition { get; set; }
-        public List<string> filters { get; set; } // Adjust this if 'filters' field in the response has a different structure
     }
 }
