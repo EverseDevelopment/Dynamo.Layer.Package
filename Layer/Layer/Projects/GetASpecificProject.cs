@@ -27,19 +27,19 @@ namespace Projects
                 if (response.IsSuccessful)
                 {
                     var projectResponse = JsonConvert.DeserializeObject<SpecificProjectResponse>(response.Content);
-                    var project = projectResponse.project;
+                    var project = projectResponse.Project;
 
                     var projectDict = new Dictionary<string, string>
                     {
-                        { "createdAt", project.createdAt.ToString() },
-                        { "createdBy", project.createdBy },
-                        { "company", project.company },
-                        { "name", project.name },
-                        { "location", project.location },
-                        { "id", project.id },
-                        { "status", project.status },
-                        { "type", project.type },
-                        { "role", projectResponse.role } // role is outside the project object
+                        { "createdAt", project.CreatedAt.ToString() },
+                        { "createdBy", project.CreatedBy },
+                        { "company", project.Company },
+                        { "name", project.Name },
+                        { "location", project.Location },
+                        { "id", project.Id },
+                        { "status", project.Status },
+                        { "type", project.Type },
+                        { "role", projectResponse.Role } // role is outside the project object
                     };
 
                     return projectDict;
@@ -57,11 +57,5 @@ namespace Projects
                 return null;
             }
         }
-    }
-
-    class SpecificProjectResponse
-    {
-        public Project project { get; set; }
-        public string role { get; set; }
     }
 }

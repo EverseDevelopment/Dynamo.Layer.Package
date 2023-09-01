@@ -30,18 +30,18 @@ namespace Projects
                     var projectResponse = JsonConvert.DeserializeObject<ProjectResponse>(response.Content);
                     var projectsDictList = new List<Dictionary<string, string>>();
 
-                    foreach (var project in projectResponse.projects)
+                    foreach (var project in projectResponse.Projects)
                     {
                         var projectDict = new Dictionary<string, string>
                         {
-                            { "createdAt", project.createdAt.ToString() },
-                            { "createdBy", project.createdBy },
-                            { "company", project.company },
-                            { "name", project.name },
-                            { "location", project.location },
-                            { "id", project.id },
-                            { "status", project.status },
-                            { "type", project.type }
+                            { "createdAt", project.CreatedAt.ToString() },
+                            { "createdBy", project.CreatedBy },
+                            { "company", project.Company },
+                            { "name", project.Name },
+                            { "location", project.Location },
+                            { "id", project.Id },
+                            { "status", project.Status },
+                            { "type", project.Type }
                         };
                         projectsDictList.Add(projectDict);
                     }
@@ -61,22 +61,5 @@ namespace Projects
                 return null;
             }
         }
-    }
-
-    class ProjectResponse
-    {
-        public List<Project> projects { get; set; }
-    }
-
-   class Project
-    {
-        public DateTime createdAt { get; set; }
-        public string createdBy { get; set; }
-        public string company { get; set; }
-        public string name { get; set; }
-        public string location { get; set; }
-        public string id { get; set; }
-        public string status { get; set; }
-        public string type { get; set; }
     }
 }

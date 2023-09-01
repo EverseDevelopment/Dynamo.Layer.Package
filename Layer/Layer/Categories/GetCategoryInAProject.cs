@@ -31,25 +31,25 @@ namespace Categories
                     // Map category details
                     var result = new Dictionary<string, object>
                     {
-                        { "createdAt", categoryDetailResponse.category.createdAt.ToString() },
-                        { "count", categoryDetailResponse.category.count.ToString() },
-                        { "initials", categoryDetailResponse.category.initials },
-                        { "instance", categoryDetailResponse.category.instance },
-                        { "modelCategory", categoryDetailResponse.category.modelCategory.ToString() },
-                        { "name", categoryDetailResponse.category.name },
-                        { "id", categoryDetailResponse.category.id },
-                        { "updatedAt", categoryDetailResponse.category.updatedAt.ToString() }
+                        { "createdAt", categoryDetailResponse.Category.CreatedAt.ToString() },
+                        { "count", categoryDetailResponse.Category.Count.ToString() },
+                        { "initials", categoryDetailResponse.Category.Initials },
+                        { "instance", categoryDetailResponse.Category.Instance },
+                        { "modelCategory", categoryDetailResponse.Category.ModelCategory.ToString() },
+                        { "name", categoryDetailResponse.Category.Name },
+                        { "id", categoryDetailResponse.Category.Id },
+                        { "updatedAt", categoryDetailResponse.Category.UpdatedAt.ToString() }
                     };
 
                     // Map views
                     var viewsList = new List<Dictionary<string, string>>();
-                    foreach (var view in categoryDetailResponse.views)
+                    foreach (var view in categoryDetailResponse.Views)
                     {
                         var viewDict = new Dictionary<string, string>
                         {
-                            { "id", view.id },
-                            { "name", view.name },
-                            { "type", view.type }
+                            { "id", view.Id },
+                            { "name", view.Name },
+                            { "type", view.Type }
                         };
                         viewsList.Add(viewDict);
                     }
@@ -71,18 +71,5 @@ namespace Categories
                 return null;
             }
         }
-    }
-
-    class CategoryDetailResponse
-    {
-        public Category category { get; set; }
-        public List<View> views { get; set; }
-    }
-
-    class View
-    {
-        public string id { get; set; }
-        public string name { get; set; }
-        public string type { get; set; }
     }
 }
