@@ -8,6 +8,6 @@ namespace Elements
 {
     internal class ElementResponse
     {
-        public List<Element> Elements { get; set; }
+        public Element Element { get; set; }
     }
 }

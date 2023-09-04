@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Layer.Elements
+namespace Elements
 {
-    internal class CreateAnElement
+    internal class ElementsResponse
     {
+        public List<Element> Elements { get; set; }
     }
 }
