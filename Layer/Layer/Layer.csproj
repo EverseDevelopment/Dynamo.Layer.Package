@@ -191,7 +191,15 @@
     <None Include="packages.config" />
     <None Include="pkg.json" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="PackageImages.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DefaultCustomNode.Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DefaultCustomNode.Large.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
     <ItemGroup>
@@ -212,6 +220,7 @@
 
 
 if not exist "$(SolutionDir)\..\packages\Layer" mkdir "$(SolutionDir)\..\packages\Layer"
+if not exist "$(SolutionDir)\..\packages\Layer\bin" mkdir "$(SolutionDir)\..\packages\Layer\bin"
 
 
 
@@ -220,6 +229,7 @@ if not exist "$(SolutionDir)\..\packages\Layer" mkdir "$(SolutionDir)\..\package
 
 
 copy "$(SolutionDir)Layer\pkg.json" "$(SolutionDir)\..\packages\Layer"
+copy "$(ProjectDir)bin\Debug\Package.customization.dll" "$(SolutionDir)\..\packages\Layer\bin"
 
 
 
@@ -253,4 +263,14 @@ if "$(ConfigurationName)"=="Debug"  xcopy /E /Y "$(ProjectDir)..\..\packages\" "
       <UserProperties pkg_1json__JsonSchema="https://codemagic.io/codemagic-schema.json" />
     </VisualStudio>
   </ProjectExtensions>
+  <Target Name="BeforeBuild">
+    <GetReferenceAssemblyPaths TargetFrameworkMoniker=".NETFramework, Version=v2.0">
+      <Output TaskParameter="FullFrameworkReferenceAssemblyPaths" PropertyName="FrameworkAssembliesPath" />
+    </GetReferenceAssemblyPaths>
+    <GenerateResource SdkToolsPath="$(TargetFrameworkSDKToolsDirectory)" UseSourcePath="true" Sources="$(ProjectDir)PackageImages.resx" OutputResources="$(ProjectDir)PackageImages.resources" References="$(FrameworkAssembliesPath)System.Drawing.dll" />
+    <GenerateResource UseSourcePath="true" Sources="$(ProjectDir)PackageImages.resx" OutputResources="$(ProjectDir)PackageImages.resources" References="$(FrameworkAssembliesPath)System.Drawing.dll" />
+    <AL TargetType="library" EmbedResources="$(ProjectDir)PackageImages.resources" OutputAssembly="$(OutDir)Package.customization.dll" />
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
 </Project>

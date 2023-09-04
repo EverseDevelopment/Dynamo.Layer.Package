@@ -16,11 +16,12 @@ namespace Elements
         public static Dictionary<string, string> UpdateElement(
              string projectId,
              string elementId,
+             string bearerToken,
              string categoryId = null,
              string name = null,
              bool? completed = null,
-             bool? starred = null,
-             string bearerToken)
+             bool? starred = null
+             )
         {
             var client = new RestClient($"https://api.layer.team/projects/{projectId}/elements/{elementId}");
             var request = new RestRequest(Method.PATCH);
