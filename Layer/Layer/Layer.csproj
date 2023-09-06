@@ -192,13 +192,70 @@
     <None Include="pkg.json" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="PackageImages.resx" />
+    <EmbeddedResource Include="Resources\LayerImages.resx" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\DefaultCustomNode.Small.png" />
+    <None Include="Resources\Categories.GetProjectCategories.GetCategoriesByProjectId.Large.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\DefaultCustomNode.Large.png" />
+    <None Include="Resources\Categories.GetCategoryDetails.GetCategoryDetailsById.Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Categories.GetCategoryDetails.GetCategoryDetailsById.Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Categories.GetProjectCategories.GetCategoriesByProjectId.Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elements.CreateElements.CreateElement.Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elements.CreateElements.CreateElement.Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elements.DeleteAnElement.DeleteElement.Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elements.DeleteAnElement.DeleteElement.Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elements.GetElements.GetAllElements.Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elements.GetElements.GetAllElements.Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elements.GetElements.GetElementById.Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elements.GetElements.GetElementById.Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elements.UpdateAnElement.UpdateElement.Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elements.UpdateAnElement.UpdateElement.Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logo.Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Projects.GetAllProjects.GetProjects.Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Projects.GetAllProjects.GetProjects.Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Projects.GetASpecificProject.GetProjectById.Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Projects.GetASpecificProject.GetProjectById.Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Views.GetCategoryViewDetails.GetViewDetails.Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Views.GetCategoryViewDetails.GetViewDetails.Small.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
@@ -221,6 +278,7 @@
 
 if not exist "$(SolutionDir)\..\packages\Layer" mkdir "$(SolutionDir)\..\packages\Layer"
 if not exist "$(SolutionDir)\..\packages\Layer\bin" mkdir "$(SolutionDir)\..\packages\Layer\bin"
+if not exist "$(SolutionDir)\..\packages\Layer\pkg" mkdir "$(SolutionDir)\..\packages\Layer\pkg"
 
 
 
@@ -229,7 +287,8 @@ if not exist "$(SolutionDir)\..\packages\Layer\bin" mkdir "$(SolutionDir)\..\pac
 
 
 copy "$(SolutionDir)Layer\pkg.json" "$(SolutionDir)\..\packages\Layer"
-copy "$(ProjectDir)bin\Debug\Package.customization.dll" "$(SolutionDir)\..\packages\Layer\bin"
+copy "$(ProjectDir)bin\Debug\*" "$(SolutionDir)\..\packages\Layer\bin"
+copy "$(ProjectDir)Resources\*" "$(SolutionDir)\..\packages\Layer\pkg"
 
 
 
@@ -264,13 +323,18 @@ if "$(ConfigurationName)"=="Debug"  xcopy /E /Y "$(ProjectDir)..\..\packages\" "
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="BeforeBuild">
-    <GetReferenceAssemblyPaths TargetFrameworkMoniker=".NETFramework, Version=v2.0">
-      <Output TaskParameter="FullFrameworkReferenceAssemblyPaths" PropertyName="FrameworkAssembliesPath" />
-    </GetReferenceAssemblyPaths>
-    <GenerateResource SdkToolsPath="$(TargetFrameworkSDKToolsDirectory)" UseSourcePath="true" Sources="$(ProjectDir)PackageImages.resx" OutputResources="$(ProjectDir)PackageImages.resources" References="$(FrameworkAssembliesPath)System.Drawing.dll" />
-    <GenerateResource UseSourcePath="true" Sources="$(ProjectDir)PackageImages.resx" OutputResources="$(ProjectDir)PackageImages.resources" References="$(FrameworkAssembliesPath)System.Drawing.dll" />
-    <AL TargetType="library" EmbedResources="$(ProjectDir)PackageImages.resources" OutputAssembly="$(OutDir)Package.customization.dll" />
   </Target>
   <Target Name="AfterBuild">
+    <!-- Get System.Drawing.dll -->
+    <GetReferenceAssemblyPaths TargetFrameworkMoniker=".NETFramework, Version=v4.8">
+      <Output TaskParameter="FullFrameworkReferenceAssemblyPaths" PropertyName="FrameworkAssembliesPath" />
+    </GetReferenceAssemblyPaths>
+    <!-- Get assembly -->
+    <GetAssemblyIdentity AssemblyFiles="$(OutDir)$(TargetName).dll">
+      <Output TaskParameter="Assemblies" ItemName="AssemblyInfo" />
+    </GetAssemblyIdentity>
+    <!-- Generate customization dll -->
+    <GenerateResource SdkToolsPath="$(TargetFrameworkSDKToolsDirectory)" UseSourcePath="true" Sources="$(ProjectDir)\Resources\LayerImages.resx" OutputResources="$(ProjectDir)\Resources\LayerImages.resources" References="$(FrameworkAssembliesPath)System.Drawing.dll" />
+    <AL SdkToolsPath="$(TargetFrameworkSDKToolsDirectory)" TargetType="library" EmbedResources="$(ProjectDir)\Resources\LayerImages.resources" OutputAssembly="$(OutDir)Layer.customization.dll" Version="%(AssemblyInfo.Version)" />
   </Target>
 </Project>

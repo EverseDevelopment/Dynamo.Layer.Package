@@ -14,6 +14,7 @@
   "site_url": "",
   "repository_url": "",
   "contains_binaries": true,
+  "logo": "./pkg/Logo.Large.png",
   "node_libraries": [
     "Layer, Version=1.0.0, Culture=neutral, PublicKeyToken=null"
   ]
