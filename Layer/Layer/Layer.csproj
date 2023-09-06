@@ -176,8 +176,7 @@
     <Compile Include="Elements\UpdateAnElement.cs" />
     <Compile Include="Projects\Models\Project.cs" />
     <Compile Include="Projects\Models\ProjectResponse.cs" />
-    <Compile Include="Projects\GetAllProjects.cs" />
-    <Compile Include="Projects\GetASpecificProject.cs" />
+    <Compile Include="Projects\GetProjects.cs" />
     <Compile Include="Projects\Models\SpecificProjectResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\GetViewOfACategoryInAProject.cs" />
@@ -240,16 +239,16 @@
     <None Include="Resources\Logo.Large.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Projects.GetAllProjects.GetProjects.Large.png" />
+    <None Include="Resources\Projects.GetProjects.GetAllProjects.Large.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Projects.GetAllProjects.GetProjects.Small.png" />
+    <None Include="Resources\Projects.GetProjects.GetAllProjects.Small.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Projects.GetASpecificProject.GetProjectById.Large.png" />
+    <None Include="Resources\Projects.GetProjects.GetProjectById.Large.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Projects.GetASpecificProject.GetProjectById.Small.png" />
+    <None Include="Resources\Projects.GetProjects.GetProjectById.Small.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Views.GetCategoryViewDetails.GetViewDetails.Large.png" />
