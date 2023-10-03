@@ -12,9 +12,11 @@ namespace Views
 
         public static Dictionary<string, object> GetViewDetails(string projectId, string categoryId, string viewId, string bearerToken)
         {
-            var client = new RestClient($"https://api.layer.team/projects/{projectId}/categories/{categoryId}/views/{viewId}");
-            client.Timeout = -1;
-            var request = new RestRequest(Method.GET);
+            RestClientOptions options = new RestClientOptions();
+            options.MaxTimeout = -1;
+            var client = new RestClient(options);
+
+            var request = new RestRequest($"https://api.layer.team/projects/{projectId}", Method.Get);
 
             // Headers
             request.AddHeader("Accept", "application/json");
@@ -22,7 +24,7 @@ namespace Views
 
             try
             {
-                IRestResponse response = client.Execute(request);
+                var response = client.Execute(request);
 
                 if (response.IsSuccessful)
                 {

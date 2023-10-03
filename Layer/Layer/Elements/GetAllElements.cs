@@ -12,9 +12,11 @@ namespace Elements
 
         public static List<Dictionary<string, string>> GetElements(string projectId, string bearerToken)
         {
-            var client = new RestClient($"https://api.layer.team/projects/{projectId}/elements");
-            client.Timeout = -1;
-            var request = new RestRequest(Method.GET);
+            RestClientOptions options = new RestClientOptions();
+            options.MaxTimeout = -1;
+            var client = new RestClient(options);
+
+            var request = new RestRequest($"https://api.layer.team/projects/{projectId}/elements", Method.Get);
 
             // Headers
             request.AddHeader("Accept", "application/json");
@@ -22,7 +24,7 @@ namespace Elements
 
             try
             {
-                IRestResponse response = client.Execute(request);
+                var response = client.Execute(request);
 
                 if (response.IsSuccessful)
                 {
