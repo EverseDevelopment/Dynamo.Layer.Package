@@ -12,8 +12,8 @@ namespace Elements
         private DeleteAnElement() { }
         public static bool DeleteElement(string projectId, string elementId, string bearerToken)
         {
-            var client = new RestClient($"https://api.layer.team/projects/{projectId}/elements/{elementId}");
-            var request = new RestRequest(Method.DELETE);
+            var client = new RestClient();
+            var request = new RestRequest($"https://api.layer.team/projects/{projectId}/elements/{elementId}", Method.Delete);
 
             // Add Headers
             request.AddHeader("Accept", "application/json");
@@ -21,7 +21,7 @@ namespace Elements
 
             try
             {
-                IRestResponse response = client.Execute(request);
+                var response = client.Execute(request);
 
                 if (response.IsSuccessful)
                 {

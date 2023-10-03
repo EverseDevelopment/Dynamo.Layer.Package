@@ -22,21 +22,15 @@ namespace Elements
              string bearerToken
              )
         {
-            var client = new RestClient($"https://api.layer.team/projects/{projectId}/elements");
-            var request = new RestRequest(Method.POST);
+            var client = new RestClient();
+            var request = new RestRequest($"https://api.layer.team/projects/{projectId}/elements",Method.Post);
             request.AddHeader("accept", "application/json");
             request.AddHeader("Authorization", $"Bearer {bearerToken}");
 
             StringBuilder payload = new StringBuilder();
             payload.Append("{");
             payload.AppendFormat("\"category\":{{\"id\":\"{0}\"}},", categoryId);
-            //payload.Append("\"fields\":{"); (Fields not implemented on Element creation for now)
-            //foreach (var field in fields)
-            //{
-            //    payload.AppendFormat("\"{0}\":{{\"value\":\"{1}\"}},", field.Key, field.Value);
-            //}
-            //if (fields.Count > 0) payload.Length--;  // Remove last comma
-            //payload.Append("},");
+
             payload.AppendFormat("\"name\":\"{0}\",", name);
             payload.AppendFormat("\"completed\":{0},", completed.ToString().ToLower());
             payload.AppendFormat("\"starred\":{0}", starred.ToString().ToLower());
@@ -46,7 +40,7 @@ namespace Elements
 
             try
             {
-                IRestResponse response = client.Execute(request);
+                var response = client.Execute(request);
 
                 if (response.IsSuccessful)
                 {
