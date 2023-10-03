@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Layer.Elements
+namespace Elements
 {
-    internal class GetElementById
+    internal class Relation
     {
+        public string Id { get; set; }
+        public string Name { get; set; }
     }
 }

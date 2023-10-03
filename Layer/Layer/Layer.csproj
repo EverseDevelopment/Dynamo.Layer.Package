@@ -93,19 +93,19 @@
     <Compile Include="Categories\Models\CategoryResponse.cs" />
     <Compile Include="Elements\Models\Param.cs" />
     <Compile Include="Categories\Models\View.cs" />
-    <Compile Include="Elements\CreateAnElement.cs" />
+    <Compile Include="Elements\CreateElements.cs" />
     <Compile Include="Elements\DeleteAnElement.cs" />
-    <Compile Include="Elements\GetElementById.cs" />
-    <Compile Include="Elements\GetAllElements.cs" />
+    <Compile Include="Elements\GetElements.cs" />
     <Compile Include="Elements\Models\Element.cs" />
-    <Compile Include="Elements\Models\ElementResponse.cs" />
+    <Compile Include="Elements\Models\ElementsResponse.cs" />
     <Compile Include="Elements\Models\Field.cs" />
+    <Compile Include="Elements\Models\ElementResponse.cs" />
+    <Compile Include="Elements\Models\Relation.cs" />
     <Compile Include="Elements\Models\SpatialRelationship.cs" />
     <Compile Include="Elements\UpdateAnElement.cs" />
     <Compile Include="Projects\Models\Project.cs" />
     <Compile Include="Projects\Models\ProjectResponse.cs" />
-    <Compile Include="Projects\GetAllProjects.cs" />
-    <Compile Include="Projects\GetASpecificProject.cs" />
+    <Compile Include="Projects\GetProjects.cs" />
     <Compile Include="Projects\Models\SpecificProjectResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\GetViewOfACategoryInAProject.cs" />
@@ -119,7 +119,72 @@
     <None Include="packages.config" />
     <None Include="pkg.json" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\LayerImages.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Categories.GetProjectCategories.GetCategoriesByProjectId.Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Categories.GetCategoryDetails.GetCategoryDetailsById.Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Categories.GetCategoryDetails.GetCategoryDetailsById.Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Categories.GetProjectCategories.GetCategoriesByProjectId.Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elements.CreateElements.CreateElement.Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elements.CreateElements.CreateElement.Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elements.DeleteAnElement.DeleteElement.Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elements.DeleteAnElement.DeleteElement.Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elements.GetElements.GetAllElements.Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elements.GetElements.GetAllElements.Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elements.GetElements.GetElementById.Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elements.GetElements.GetElementById.Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elements.UpdateAnElement.UpdateElement.Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elements.UpdateAnElement.UpdateElement.Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logo.Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Projects.GetProjects.GetAllProjects.Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Projects.GetProjects.GetAllProjects.Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Projects.GetProjects.GetProjectById.Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Projects.GetProjects.GetProjectById.Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Views.GetCategoryViewDetails.GetViewDetails.Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Views.GetCategoryViewDetails.GetViewDetails.Small.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
     <ItemGroup>
@@ -140,6 +205,8 @@
 
 
 if not exist "$(SolutionDir)\..\packages\Layer" mkdir "$(SolutionDir)\..\packages\Layer"
+if not exist "$(SolutionDir)\..\packages\Layer\bin" mkdir "$(SolutionDir)\..\packages\Layer\bin"
+if not exist "$(SolutionDir)\..\packages\Layer\pkg" mkdir "$(SolutionDir)\..\packages\Layer\pkg"
 
 
 
@@ -148,6 +215,8 @@ if not exist "$(SolutionDir)\..\packages\Layer" mkdir "$(SolutionDir)\..\package
 
 
 copy "$(SolutionDir)Layer\pkg.json" "$(SolutionDir)\..\packages\Layer"
+copy "$(ProjectDir)bin\Debug\*" "$(SolutionDir)\..\packages\Layer\bin"
+copy "$(ProjectDir)Resources\*" "$(SolutionDir)\..\packages\Layer\pkg"
 
 
 
@@ -171,4 +240,19 @@ if "$(ConfigurationName)"=="Debug"  xcopy /E /Y "$(ProjectDir)..\..\packages\" "
       <UserProperties pkg_1json__JsonSchema="https://codemagic.io/codemagic-schema.json" />
     </VisualStudio>
   </ProjectExtensions>
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+    <!-- Get System.Drawing.dll -->
+    <GetReferenceAssemblyPaths TargetFrameworkMoniker=".NETFramework, Version=v4.8">
+      <Output TaskParameter="FullFrameworkReferenceAssemblyPaths" PropertyName="FrameworkAssembliesPath" />
+    </GetReferenceAssemblyPaths>
+    <!-- Get assembly -->
+    <GetAssemblyIdentity AssemblyFiles="$(OutDir)$(TargetName).dll">
+      <Output TaskParameter="Assemblies" ItemName="AssemblyInfo" />
+    </GetAssemblyIdentity>
+    <!-- Generate customization dll -->
+    <GenerateResource SdkToolsPath="$(TargetFrameworkSDKToolsDirectory)" UseSourcePath="true" Sources="$(ProjectDir)\Resources\LayerImages.resx" OutputResources="$(ProjectDir)\Resources\LayerImages.resources" References="$(FrameworkAssembliesPath)System.Drawing.dll" />
+    <AL SdkToolsPath="$(TargetFrameworkSDKToolsDirectory)" TargetType="library" EmbedResources="$(ProjectDir)\Resources\LayerImages.resources" OutputAssembly="$(OutDir)Layer.customization.dll" Version="%(AssemblyInfo.Version)" />
+  </Target>
 </Project>
