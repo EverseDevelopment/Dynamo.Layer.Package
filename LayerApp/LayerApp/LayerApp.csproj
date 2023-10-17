@@ -10,8 +10,8 @@
     <ProjectGuid>{CEE15DE8-3542-492D-9280-792E39AE25C8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Layer</RootNamespace>
-    <AssemblyName>Layer</AssemblyName>
+    <RootNamespace>LayerApp</RootNamespace>
+    <AssemblyName>LayerApp</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -27,7 +27,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Layer.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\LayerApp.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,7 +36,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Layer.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\LayerApp.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>8.0</LangVersion>
@@ -191,9 +191,6 @@
     <None Include="pkg.json" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\LayerImages.resx" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Categories.GetProjectCategories.GetCategoriesByProjectId.Large.png" />
   </ItemGroup>
   <ItemGroup>
@@ -256,6 +253,11 @@
   <ItemGroup>
     <None Include="Resources\Views.GetCategoryViewDetails.GetViewDetails.Small.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\LayerAppImages.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
     <ItemGroup>
@@ -275,9 +277,9 @@
     <PostBuildEvent>:: Check if destination folder for copy command exists
 
 
-if not exist "$(SolutionDir)\..\packages\Layer" mkdir "$(SolutionDir)\..\packages\Layer"
-if not exist "$(SolutionDir)\..\packages\Layer\bin" mkdir "$(SolutionDir)\..\packages\Layer\bin"
-if not exist "$(SolutionDir)\..\packages\Layer\pkg" mkdir "$(SolutionDir)\..\packages\Layer\pkg"
+if not exist "$(SolutionDir)\..\packages\LayerApp" mkdir "$(SolutionDir)\..\packages\LayerApp"
+if not exist "$(SolutionDir)\..\packages\LayerApp\bin" mkdir "$(SolutionDir)\..\packages\LayerApp\bin"
+if not exist "$(SolutionDir)\..\packages\LayerApp\pkg" mkdir "$(SolutionDir)\..\packages\LayerApp\pkg"
 
 
 
@@ -285,9 +287,9 @@ if not exist "$(SolutionDir)\..\packages\Layer\pkg" mkdir "$(SolutionDir)\..\pac
 :: Perform the copy
 
 
-copy "$(SolutionDir)Layer\pkg.json" "$(SolutionDir)\..\packages\Layer"
-copy "$(ProjectDir)bin\Debug\*" "$(SolutionDir)\..\packages\Layer\bin"
-copy "$(ProjectDir)Resources\*" "$(SolutionDir)\..\packages\Layer\pkg"
+copy "$(SolutionDir)LayerApp\pkg.json" "$(SolutionDir)\..\packages\LayerApp"
+copy "$(ProjectDir)bin\Debug\*" "$(SolutionDir)\..\packages\LayerApp\bin"
+copy "$(ProjectDir)Resources\*" "$(SolutionDir)\..\packages\LayerApp\pkg"
 
 
 
@@ -333,7 +335,7 @@ if "$(ConfigurationName)"=="Debug"  xcopy /E /Y "$(ProjectDir)..\..\packages\" "
       <Output TaskParameter="Assemblies" ItemName="AssemblyInfo" />
     </GetAssemblyIdentity>
     <!-- Generate customization dll -->
-    <GenerateResource SdkToolsPath="$(TargetFrameworkSDKToolsDirectory)" UseSourcePath="true" Sources="$(ProjectDir)\Resources\LayerImages.resx" OutputResources="$(ProjectDir)\Resources\LayerImages.resources" References="$(FrameworkAssembliesPath)System.Drawing.dll" />
-    <AL SdkToolsPath="$(TargetFrameworkSDKToolsDirectory)" TargetType="library" EmbedResources="$(ProjectDir)\Resources\LayerImages.resources" OutputAssembly="$(OutDir)Layer.customization.dll" Version="%(AssemblyInfo.Version)" />
+    <GenerateResource SdkToolsPath="$(TargetFrameworkSDKToolsDirectory)" UseSourcePath="true" Sources="$(ProjectDir)\Resources\LayerAppImages.resx" OutputResources="$(ProjectDir)\Resources\LayerAppImages.resources" References="$(FrameworkAssembliesPath)System.Drawing.dll" />
+    <AL SdkToolsPath="$(TargetFrameworkSDKToolsDirectory)" TargetType="library" EmbedResources="$(ProjectDir)\Resources\LayerAppImages.resources" OutputAssembly="$(OutDir)LayerApp.customization.dll" Version="%(AssemblyInfo.Version)" />
   </Target>
 </Project>

@@ -1,13 +1,13 @@
 {
   "license": "MIT",
   "file_hash": null,
-  "name": "Layer",
+  "name": "LayerApp",
   "version": "1.0.0",
   "description": "Connection to Layer App",
-  "group": "Layer",
+  "group": "LayerApp",
   "keywords": [ "Layer", "Revit" ],
   "dependencies": [],
-  "contents": "Layer",
+  "contents": "LayerApp",
   "engine_version": "2.5.0",
   "engine": "dynamo",
   "engine_metadata": "",
@@ -16,6 +16,6 @@
   "contains_binaries": true,
   "logo": "./pkg/Logo.Large.png",
   "node_libraries": [
-    "Layer, Version=1.0.0, Culture=neutral, PublicKeyToken=null"
+    "LayerApp, Version=1.0.0, Culture=neutral, PublicKeyToken=null"
   ]
 }
