@@ -3,8 +3,6 @@
 <h3 align="left">An <a href="https://layer.team/" target="_blank">Layer</a> extension for <a href="http://dynamobim.org/" target="_blank">Dynamo</a>.</h3>
 <br/>
 
-<br/>
-
 If you appreciate the work put into this free package, please vote in support of it on Dynamo's package manager. 
 
 ## Current Version
