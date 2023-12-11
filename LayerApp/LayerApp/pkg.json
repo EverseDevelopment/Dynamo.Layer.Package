@@ -1,21 +1,19 @@
 {
   "license": "MIT",
   "file_hash": null,
-  "name": "LayerApp",
-  "version": "1.0.0",
-  "description": "Connection to Layer App",
-  "group": "LayerApp",
-  "keywords": [ "Layer", "Revit" ],
+  "name": "Layer App",
+  "version": "0.1.6",
+  "description": "Integrate your Dynamo scripts with the Layer App! (https://layer.team). Developed by e-verse (https://e-verse.com).",
+  "group": "",
+  "keywords": [ "layer", "api", "dynamo", "bim", "data", "revit", "e-verse", "everse" ],
   "dependencies": [],
-  "contents": "LayerApp",
-  "engine_version": "2.5.0",
+  "host_dependencies": [],
+  "contents": "",
+  "engine_version": "2.5.0.7586",
   "engine": "dynamo",
   "engine_metadata": "",
-  "site_url": "",
+  "site_url": "https://e-verse.com",
   "repository_url": "",
   "contains_binaries": true,
-  "logo": "./pkg/Logo.Large.png",
-  "node_libraries": [
-    "LayerApp, Version=1.0.0, Culture=neutral, PublicKeyToken=null"
-  ]
+  "node_libraries": [ "LayerApp.customization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "LayerApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" ]
 }

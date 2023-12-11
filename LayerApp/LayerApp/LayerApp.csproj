@@ -258,6 +258,15 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logo.Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Projects.GetProjects.GetProjectById.Large-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Projects.GetProjects.GetProjectById.Small-1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
     <ItemGroup>
